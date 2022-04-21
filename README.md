@@ -3,7 +3,11 @@
 
 **Configuration:**
 
+Copy and rename `Properties\launchSettings.example.json` to `Properties\launchSettings.json`
+
 Open `Properties\launchSettings.json` and set the machine local IP or localhost on `applicationUrl`
+
+Remember: if you put localhost it will not be possible to test using the React Native client because of the emulator.
 
 **Client:**
 
