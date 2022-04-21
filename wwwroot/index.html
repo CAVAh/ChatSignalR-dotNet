@@ -3,21 +3,25 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Mensagens</title>
+    <title>Chat Messages</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container col-6">
         <div class="form-group">
-            <label for="usuario">Usuário</label>
-            <input type="text" id="usuario" class="form-control" />
+            <label for="user">From User</label>
+            <input type="text" id="user" class="form-control" />
         </div>
         <div class="form-group">
-            <label for="mensagem">Mensagem</label>
-            <textarea class="form-control" id="mensagem" rows="2"></textarea>
+            <label for="group">To Group/User</label>
+            <input type="text" id="group" class="form-control" />
         </div>
-        <input type="button" class="btn btn-primary" id="send" value="Enviar Mensagem" />
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea class="form-control" id="message" rows="2"></textarea>
+        </div>
+        <input type="button" class="btn btn-primary" id="send" value="Send Message" />
     </div>
     <div class="row">
         <div class="col-12">

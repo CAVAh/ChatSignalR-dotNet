@@ -4,9 +4,9 @@ namespace ChatSignalR.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessage(string usuario, string mensagem)
+        public async Task SendMessage(string group, string user, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", usuario, mensagem);
+            await Clients.All.SendAsync("ReceiveMessage", group, user, message);
         }
     }
 }
