@@ -24,4 +24,8 @@
     <None Include="wwwroot\main.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NHibernate" Version="5.3.11" />
+  </ItemGroup>
+
 </Project>

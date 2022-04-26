@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping assembly="ChatSignalR" namespace="ChatSignalR.Models" default-lazy="false" xmlns="urn:nhibernate-mapping-2.2">
+	<class name="Mensagem" table="MENSAGEM" >
+		<id name="Id" column="id_mensagem">
+			<generator class="identity" />
+		</id>
+
+		<property name="Mensagem" column="mensagem" />
+		<property name="CreatedAt" column="created_at" />
+
+		<many-to-one name="Grupo" class="Grupo" column="grupo_id_grupo" />
+		<many-to-one name="User" class="User" column="user_id_user" />
+	</class>
+</hibernate-mapping>
