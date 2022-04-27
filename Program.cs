@@ -1,10 +1,3 @@
-/*var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
-
-app.MapGet("/", () => "Hello World!");
-
-app.Run();*/
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
