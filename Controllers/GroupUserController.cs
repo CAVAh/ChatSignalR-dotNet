@@ -20,21 +20,19 @@ namespace ChatSignalR.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GroupUser>>> ListGroupUsers([FromQuery] string? filter = null)
+        public async Task<ActionResult<IEnumerable<GroupUser>>> ListGroupUsers([FromQuery] int? userId = null)
         {
             try
             {
                 IEnumerable<GroupUser> lista;
-                if (filter == null)
+                if (userId == null)
                 {
                     lista = await _context.GroupUsers.ToListAsync();
                 }
                 else
                 {
                     // define o filtro
-                    lista = await _context.GroupUsers.ToListAsync();
-                    //Filtro filtro = new Filtro(filter);
-                    //lista = _context.ConsultarListaFiltro(filtro);
+                    lista = await _context.GroupUsers.Where(p => p.UserId == userId).ToListAsync();
                 }
                 return Ok(lista);
             }
@@ -79,6 +77,31 @@ namespace ChatSignalR.Controllers
                 }
 
                 _context.GroupUsers.Add(objJson);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction(
+                    nameof(GetGroupUser),
+                    new { id = objJson.Id },
+                    objJson);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new RetornoJsonErro(500, "Erro no Servidor [Inserir GrupoUsuario]", ex));
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("{id}")]
+        public async Task<ActionResult<GroupUser>> CreateGroupUsersByGroup(int id, [FromBody] GroupUser objJson)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return StatusCode(400, new RetornoJsonErro(400, "Objeto inválido [Inserir GrupoUsuario]", null));
+                }
+
+                _context.GroupUsers.Add(objJson); // TODO: Iterar e salvar no banco
                 await _context.SaveChangesAsync();
 
                 return CreatedAtAction(

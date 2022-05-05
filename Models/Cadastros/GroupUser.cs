@@ -13,6 +13,8 @@ namespace ChatSignalR.Models
         public Group? Group { get; set; }
         [Column("Id_User")]
         public int UserId { get; set; }
+        [NotMapped]
+        public int[]? UserIds { get; set; }
         public User? User { get; set; }
     }
 }
