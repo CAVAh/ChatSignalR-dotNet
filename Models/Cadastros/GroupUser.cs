@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChatSignalR.Models
 {
-    public class Message
+
+    [Table("group_users")]
+    public class GroupUser
     {
         public int Id { get; set; }
-        public string? Text { get; set; }
-        public System.Nullable<System.DateTime> Created_At { get; set; }
         [Column("Id_Group")]
         public int GroupId { get; set; }
         public Group? Group { get; set; }

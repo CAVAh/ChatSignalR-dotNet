@@ -23,6 +23,7 @@ namespace ChatSignalR.Data
         }*/
 
         public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<GroupUser> GroupUsers { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
