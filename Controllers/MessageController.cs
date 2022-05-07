@@ -20,21 +20,19 @@ namespace ChatSignalR.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Message>>> ListMessages([FromQuery] string? filter = null)
+        public async Task<ActionResult<IEnumerable<Message>>> ListMessages([FromQuery] int? groupId = null, [FromQuery] int? page = 1, [FromQuery] int? limit = 20)
         {
             try
             {
                 IEnumerable<Message> lista;
-                if (filter == null)
+                if (groupId == null)
                 {
                     lista = await _context.Messages.ToListAsync();
                 }
                 else
                 {
                     // define o filtro
-                    lista = await _context.Messages.ToListAsync();
-                    //Filtro filtro = new Filtro(filter);
-                    //lista = _context.ConsultarListaFiltro(filtro);
+                    lista = await _context.Messages.Where(p => p.GroupId == groupId).ToListAsync();
                 }
                 return Ok(lista);
             }
@@ -79,6 +77,7 @@ namespace ChatSignalR.Controllers
                 }
 
                 _context.Messages.Add(objJson);
+                objJson.Created_At = DateTime.Now;
                 await _context.SaveChangesAsync();
 
                 return CreatedAtAction(

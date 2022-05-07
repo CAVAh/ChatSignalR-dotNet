@@ -9,9 +9,7 @@ namespace ChatSignalR.Models
         public System.Nullable<System.DateTime> Created_At { get; set; }
         [Column("Id_Group")]
         public int GroupId { get; set; }
-        public Group? Group { get; set; }
         [Column("Id_User")]
         public int UserId { get; set; }
-        public User? User { get; set; }
     }
 }

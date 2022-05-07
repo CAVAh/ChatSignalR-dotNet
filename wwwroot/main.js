@@ -5,7 +5,7 @@ $("#send").disabled = true;
 
 connection.on("ReceiveMessage", function (group, user, message) {
     var msg = message.replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
-    var li = $("<li></li>").text('From user: ' + user + " to group/user: " + group + " the message: " + msg);
+    var li = $("<li></li>").html('From user: <b>' + user + "</b> to group/user: <b>" + group + "</b> the message: <b>" + msg + "</b>");
     li.addClass("list-group-item");
     $("#messagesList").append(li);
 });
