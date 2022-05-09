@@ -24,15 +24,17 @@ namespace ChatSignalR.Controllers
         {
             try
             {
+                var _page = page ?? 0;
+                var _limit = limit ?? 20;
                 IEnumerable<Message> lista;
                 if (groupId == null)
                 {
-                    lista = await _context.Messages.ToListAsync();
+                    lista = await _context.Messages.OrderByDescending(e => e.Id).Skip(_limit * _page).Take(_limit).ToListAsync();
                 }
                 else
                 {
                     // define o filtro
-                    lista = await _context.Messages.Where(p => p.GroupId == groupId).ToListAsync();
+                    lista = await _context.Messages.Where(p => p.GroupId == groupId).OrderByDescending(e => e.Id).Skip(_limit * _page).Take(_limit).ToListAsync();
                 }
                 return Ok(lista);
             }

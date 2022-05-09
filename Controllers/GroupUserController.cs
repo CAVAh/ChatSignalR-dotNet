@@ -91,17 +91,24 @@ namespace ChatSignalR.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("{id}")]
-        public async Task<ActionResult<GroupUser>> CreateGroupUsersByGroup(int id, [FromBody] GroupUser objJson)
+        [HttpPost("{groupId}")]
+        public async Task<ActionResult<GroupUser>> CreateGroupUsersByGroup(int groupId, [FromBody] GroupUser objJson)
         {
             try
             {
-                if (!ModelState.IsValid)
+                if (!ModelState.IsValid || objJson.UserIds?.Length == 0)
                 {
                     return StatusCode(400, new RetornoJsonErro(400, "Objeto inválido [Inserir GrupoUsuario]", null));
                 }
 
-                _context.GroupUsers.Add(objJson); // TODO: Iterar e salvar no banco
+
+                foreach (int userId in objJson.UserIds)
+                {
+                    GroupUser groupUser = new GroupUser { UserId = userId, GroupId = groupId };
+
+                    _context.GroupUsers.Add(groupUser);
+                }
+
                 await _context.SaveChangesAsync();
 
                 return CreatedAtAction(
