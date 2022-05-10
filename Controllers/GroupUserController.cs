@@ -20,6 +20,7 @@ namespace ChatSignalR.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        [Route("list")]
         public async Task<ActionResult<IEnumerable<GroupUser>>> ListGroupUsers([FromQuery] int? userId = null)
         {
             try
@@ -35,6 +36,22 @@ namespace ChatSignalR.Controllers
                     lista = await _context.GroupUsers.Where(p => p.UserId == userId).ToListAsync();
                 }
                 return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new RetornoJsonErro(500, "Erro no Servidor [ListGroupUsers]", ex));
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<ActionResult<int>> GetGroupUserByIds([FromQuery] int userId, int groupId)
+        {
+            try
+            {
+                int groupUser = await _context.GroupUsers.Where(p => p.UserId == userId && p.GroupId == groupId).Select(g => g.Id).FirstOrDefaultAsync();
+                
+                return Ok(groupUser);
             }
             catch (Exception ex)
             {
