@@ -1,5 +1,8 @@
-﻿namespace ChatSignalR.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ChatSignalR.Models
 {
+    [Table("ChatGroups", Schema = "App")]
     public class Group
     {
         public int Id { get; set; }

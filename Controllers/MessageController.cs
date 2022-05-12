@@ -79,7 +79,7 @@ namespace ChatSignalR.Controllers
                 }
 
                 _context.Messages.Add(objJson);
-                objJson.Created_At = DateTime.Now;
+                objJson.CreatedAt = DateTime.Now;
                 await _context.SaveChangesAsync();
 
                 return CreatedAtAction(
@@ -159,7 +159,7 @@ namespace ChatSignalR.Controllers
             {
                 Id = message.Id,
                 Text = message.Text,
-                Created_At = message.Created_At,
+                CreatedAt = message.CreatedAt,
                 UserId = message.UserId,
                 GroupId = message.GroupId,
             };

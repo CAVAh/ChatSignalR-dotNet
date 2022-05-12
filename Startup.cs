@@ -24,8 +24,8 @@ namespace ChatSignalR
             services.AddSignalR();
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            // services.AddDbContext<ChatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<ChatContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+            services.AddDbContext<ChatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // services.AddDbContext<ChatContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
             services.AddSingleton(c => Configuration);
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();

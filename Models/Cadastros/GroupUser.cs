@@ -1,20 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChatSignalR.Models
 {
-
-    [Table("group_users")]
+    [Table("ChatGroupUsers", Schema = "App")]
     public class GroupUser
     {
         public int Id { get; set; }
-        [Column("Id_Group")]
+        [Column("IdGroup")]
         public int GroupId { get; set; }
-        public Group? Group { get; set; }
-        [Column("Id_User")]
-        public int UserId { get; set; }
+        [Column("IdUser")]
+        public string? UserId { get; set; }
         [NotMapped]
-        public int[]? UserIds { get; set; }
-        public User? User { get; set; }
+        public string[]? UserIds { get; set; }
     }
 }

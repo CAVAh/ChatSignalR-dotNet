@@ -17,13 +17,16 @@ namespace ChatSignalR.Hubs
         public async Task SendMessage(string group, string user, string message)
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            var contextOptions = new DbContextOptionsBuilder<ChatContext>()
+            /*var contextOptions = new DbContextOptionsBuilder<ChatContext>()
                 .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+                .Options;*/
+            var contextOptions = new DbContextOptionsBuilder<ChatContext>()
+                .UseSqlServer(connectionString)
                 .Options;
             using var context = new ChatContext(contextOptions);
 
             var GroupUserController = new GroupUserController(context);
-            var groupUserId = await GroupUserController.GetGroupUserByIds(Int32.Parse(user), Int32.Parse(group));
+            var groupUserId = await GroupUserController.GetGroupUserByIds(user, Int32.Parse(group));
 
             var result = groupUserId.Result as OkObjectResult;
 
@@ -34,7 +37,7 @@ namespace ChatSignalR.Hubs
                 await Groups.AddToGroupAsync(Context.ConnectionId, group);
                 await Clients.Group(group).SendAsync("ReceiveMessage", group, user, message);
                 var MessageController = new MessageController(context);
-                await MessageController.CreateMessage(new Message { GroupId = Int32.Parse(group), UserId = Int32.Parse(user), Text = message });
+                await MessageController.CreateMessage(new Message { GroupId = Int32.Parse(group), UserId = user, Text = message });
             }
             else
             {

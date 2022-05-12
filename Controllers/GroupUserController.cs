@@ -21,7 +21,7 @@ namespace ChatSignalR.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("list")]
-        public async Task<ActionResult<IEnumerable<GroupUser>>> ListGroupUsers([FromQuery] int? userId = null)
+        public async Task<ActionResult<IEnumerable<GroupUser>>> ListGroupUsers([FromQuery] string? userId = null)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace ChatSignalR.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<int>> GetGroupUserByIds([FromQuery] int userId, int groupId)
+        public async Task<ActionResult<int>> GetGroupUserByIds([FromQuery] string userId, int groupId)
         {
             try
             {
@@ -118,8 +118,7 @@ namespace ChatSignalR.Controllers
                     return StatusCode(400, new RetornoJsonErro(400, "Objeto inválido [Inserir GrupoUsuario]", null));
                 }
 
-
-                foreach (int userId in objJson.UserIds)
+                foreach (string userId in objJson.UserIds)
                 {
                     GroupUser groupUser = new GroupUser { UserId = userId, GroupId = groupId };
 
